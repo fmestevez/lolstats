@@ -35,6 +35,22 @@
           </p>
         </div>
 
+        <div class="form-group" ng-class="{ 'has-success': form.username.$valid && vm.submitted,
+                                            'has-error': form.username.$invalid && vm.submitted }">
+          <label>League of Legends Username</label>
+
+          <input type="text" name="username" class="form-control" ng-model="vm.user.username"
+                 ng-minlength="1"
+                 required
+                 mongoose-error/>
+          <p class="help-block" ng-show="form.username.$error.required && vm.submitted">
+            We require your League of Legends account.
+          </p>
+          <p class="help-block" ng-show="form.username.$error.mongoose">
+            {{ vm.errors.username }}
+          </p>
+        </div>
+
         <div class="form-group" ng-class="{ 'has-success': form.password.$valid && vm.submitted,
                                             'has-error': form.password.$invalid && vm.submitted }">
           <label>Password</label>

@@ -4,6 +4,8 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';
+const lolapi = require('leagueapi');
+const Q = require('q');
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
@@ -20,6 +22,7 @@ var UserSchema = new Schema({
       }
     }
   },
+  username: String,
   role: {
     type: String,
     default: 'user'
@@ -89,6 +92,22 @@ UserSchema
     }
     return password.length;
   }, 'Password cannot be blank');
+
+// Validate riot username exists
+UserSchema
+  .path('username')
+  .validate((username) => {
+    return Q.denodeify(lolapi.Summoner.getByName)(username)
+      .then((summoner) => {
+        if(summoner) {
+          return true;
+        }
+
+        return false;
+      }, (err) => {
+        return false;
+      });
+  }, 'We can\'t find that username');
 
 // Validate email is not taken
 UserSchema

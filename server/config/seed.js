@@ -45,12 +45,14 @@ User.find({}).remove()
       provider: 'local',
       name: 'Test User',
       email: 'test@example.com',
+      username: 'bantwarrior',
       password: 'test'
     }, {
       provider: 'local',
       role: 'admin',
       name: 'Admin',
       email: 'admin@example.com',
+      username: 'bantwarrior',
       password: 'admin'
     })
     .then(() => {
