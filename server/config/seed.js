@@ -46,6 +46,8 @@ User.find({}).remove()
       name: 'Test User',
       email: 'test@example.com',
       username: 'bantwarrior',
+      summonerid: '',
+      region: 'na',
       password: 'test'
     }, {
       provider: 'local',
@@ -53,6 +55,8 @@ User.find({}).remove()
       name: 'Admin',
       email: 'admin@example.com',
       username: 'bantwarrior',
+      summonerid: '',
+      region: 'na',
       password: 'admin'
     })
     .then(() => {

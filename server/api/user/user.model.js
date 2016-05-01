@@ -22,7 +22,15 @@ var UserSchema = new Schema({
       }
     }
   },
-  username: String,
+  username: {
+    type: String,
+    required: true
+  },
+  region: {
+    type: String,
+    required: true
+  },
+  summonerid: String,
   role: {
     type: String,
     default: 'user'
@@ -93,22 +101,6 @@ UserSchema
     return password.length;
   }, 'Password cannot be blank');
 
-// Validate riot username exists
-UserSchema
-  .path('username')
-  .validate((username) => {
-    return Q.denodeify(lolapi.Summoner.getByName)(username)
-      .then((summoner) => {
-        if(summoner) {
-          return true;
-        }
-
-        return false;
-      }, (err) => {
-        return false;
-      });
-  }, 'We can\'t find that username');
-
 // Validate email is not taken
 UserSchema
   .path('email')
@@ -150,6 +142,18 @@ UserSchema
         return next();
       }
     }
+
+    lolapi.init('e2bdca42-8677-4f8e-b935-fd49767b2796', this.region);
+    lolapi.Summoner.getByName(this.username, (err, summoner) => {
+      if(err) {
+        return next(new Error('Invalid username/region'));
+      }
+
+      if(summoner) {
+        this.summonerid = summoner[this.username].id;
+        return next();
+      }
+    });
 
     // Make salt with a callback
     this.makeSalt((saltErr, salt) => {

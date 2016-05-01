@@ -20,7 +20,8 @@ class SignupController {
         name: this.user.name,
         email: this.user.email,
         password: this.user.password,
-        username: this.user.username
+        username: this.user.username,
+        region: this.user.region
       })
       .then(() => {
         // Account created, redirect to home
