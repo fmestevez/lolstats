@@ -154,6 +154,7 @@ UserSchema
         return next();
       }
     });
+    this.summonerid = 29413111;
 
     // Make salt with a callback
     this.makeSalt((saltErr, salt) => {
