@@ -6,11 +6,9 @@ class ScatterGraphCtrl {
     this.$http = $http;
     this.$scope = $scope;
     this.playerData = [];
-  }
 
-  $onInit() {
-    this.$http.get('/api/riot/game/bysummoner/29413111').then(response => {
-      this.playerData = response.data.map((a) => {
+    this.$scope.$on("graphData", (event, args) => {
+      this.playerData = args.data.map((a) => {
         return this.returnZeroIfUndefined(a.stats[this.$scope.stat])
       });
 

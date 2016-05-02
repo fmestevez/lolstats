@@ -4,26 +4,15 @@
 
 class MainController {
 
-  constructor($http) {
+  constructor($http, $scope) {
     this.$http = $http;
-    this.awesomeThings = [];
+    this.$scope = $scope;
   }
 
   $onInit() {
-    this.$http.get('/api/things').then(response => {
-      this.awesomeThings = response.data;
+    this.$http.get('/api/riot/game/bysummoner/29413111').then(response => {
+      this.$scope.$broadcast("graphData", response);
     });
-  }
-
-  addThing() {
-    if (this.newThing) {
-      this.$http.post('/api/things', { name: this.newThing });
-      this.newThing = '';
-    }
-  }
-
-  deleteThing(thing) {
-    this.$http.delete('/api/things/' + thing._id);
   }
 }
 
