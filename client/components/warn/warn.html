@@ -1,0 +1,8 @@
+<div class="container" ng-controller="WarnController" style="margin: 10px;">
+  <div class="alert alert-info text-center">
+    This website compares some of your stats against one of the most widely recognized LoL players, Faker.
+  </div>
+  <div class="alert alert-warning text-center" ng-hide="WarnController.isLoggedIn()">
+    Hey! Unless you login and provide me with your LoL username, you won't be able to see your data in the graphs.
+  </div>
+</div>
