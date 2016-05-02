@@ -1,7 +1,5 @@
 # lolstats
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.6.1.
-
 ## Getting Started
 
 ### Prerequisites
@@ -19,14 +17,8 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 2. Run `bower install` to install front-end dependencies.
 
-3. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
+3. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running.
+[Mongo's Docker image is highly recommended!](https://hub.docker.com/_/mongo/)
+Just execute `sudo docker run --name lolstats-mongo -p 27017:27017 -d mongo`
 
 4. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
-
-## Build & development
-
-Run `grunt build` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `npm test` will run the unit tests with karma.

@@ -13,7 +13,7 @@ const lolapi = require('leagueapi');
 const Q = require('q');
 
 function apiInit(region) {
-  lolapi.init('e2bdca42-8677-4f8e-b935-fd49767b2796', region);
+  lolapi.init(process.env.RIOT_SECRET, region);
 }
 
 export function featured(req, res) {
