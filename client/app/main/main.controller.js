@@ -17,9 +17,14 @@ class MainController {
       let fakerData = response;
 
       if(this.isLoggedIn()) {
+
         let user = this.getCurrentUser();
-        this.$http.get(`/api/riot/game/bysummoner/${user.region}/${user.summonerid}`).then(response => {
-          this.$scope.$broadcast('graphData', [fakerData, response]);
+        this.$http.get(`/api/riot/summoner/getbyname/${user.region}/${user.username}`).then(response => {
+
+          let summonerid = response.data[user.username].id;
+          this.$http.get(`/api/riot/game/bysummoner/${user.region}/${summonerid}`).then(response => {
+            this.$scope.$broadcast('graphData', [fakerData, response]);
+          });
         });
       } else {
         this.$scope.$broadcast('graphData', [fakerData]);

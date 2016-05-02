@@ -4,8 +4,6 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';
-const lolapi = require('leagueapi');
-const Q = require('q');
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
@@ -142,19 +140,6 @@ UserSchema
         return next();
       }
     }
-
-    lolapi.init('e2bdca42-8677-4f8e-b935-fd49767b2796', this.region);
-    lolapi.Summoner.getByName(this.username, (err, summoner) => {
-      if(err) {
-        return next(new Error('Invalid username/region'));
-      }
-
-      if(summoner) {
-        this.summonerid = summoner[this.username].id;
-        return next();
-      }
-    });
-    this.summonerid = 29413111;
 
     // Make salt with a callback
     this.makeSalt((saltErr, salt) => {
