@@ -4,14 +4,26 @@
 
 class MainController {
 
-  constructor($http, $scope) {
+  constructor($http, $scope, Auth) {
     this.$http = $http;
     this.$scope = $scope;
+    this.isLoggedIn = Auth.isLoggedIn;
+    this.getCurrentUser = Auth.getCurrentUser;
   }
 
   $onInit() {
-    this.$http.get('/api/riot/game/bysummoner/29413111').then(response => {
-      this.$scope.$broadcast("graphData", response);
+    // faker id
+    this.$http.get('/api/riot/game/bysummoner/KR/1183421').then(response => {
+      let fakerData = response;
+
+      if(this.isLoggedIn()) {
+        let user = this.getCurrentUser();
+        this.$http.get(`/api/riot/game/bysummoner/${user.region}/${user.summonerid}`).then(response => {
+          this.$scope.$broadcast('graphData', [fakerData, response]);
+        });
+      } else {
+        this.$scope.$broadcast('graphData', [fakerData]);
+      }
     });
   }
 }

@@ -8,7 +8,8 @@ angular.module('lolstatsApp')
       controller: 'ScatterGraphCtrl',
       controllerAs: 'ScatterGraph',
       scope: {
-        stat: '@'
+        stat: '@',
+        title: '@'
       }
     };
   });
