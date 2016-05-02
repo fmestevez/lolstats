@@ -28,6 +28,18 @@ export function featured(req, res) {
     });
 }
 
+export function gameBySummoner(req, res) {
+
+  apiInit(req.params.region);
+
+  return Q.denodeify(lolapi.getRecentGames)(req.params.summonerid)
+    .then((games) => {
+      res.send(games);
+    }, (err) => {
+      res.send(err);
+    });
+}
+
 export function summonerByName(req, res) {
 
   apiInit(req.params.region);
